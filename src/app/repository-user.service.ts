@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+// import { environment } from 'src/environments/environment';
+// import { environment } from 'src/environments/environment';
 import { Repository } from './repository';
 import { User } from './user';
 
@@ -8,8 +9,14 @@ import { User } from './user';
   providedIn: 'root'
 })
 export class RepositoryUserService {
-  getUserDetails: User;
-  getRepositoryDetails: Repository;
+  // getUserDetails: User;
+  // getRepositoryDetails: Repository;
+  getUserDetails: any;
+  getRepositoryDetails: any;
+  environment={
+    apiUrl:'https://api.github.com/users',
+    apiKey:''
+  }
 
 
   constructor(private http: HttpClient) {
@@ -52,11 +59,11 @@ export class RepositoryUserService {
     let userPromise = new Promise<void>((resolve, reject) =>
       this.http
         .get<ApiUserResponse>(
-          environment.apiUrl +
+          this.environment.apiUrl +
             '/' +
             githubUsername  +
             '?access_token=' +
-            environment.apiKey
+            this.environment.apiKey
         )
         .toPromise()
         .then(
@@ -86,11 +93,11 @@ export class RepositoryUserService {
     let repositoryPromise = new Promise<void>((resolve, reject) => {
       this.http
         .get<ApiRepositoryResponse>(
-          environment.apiUrl +
+          this.environment.apiUrl +
             '/' +
             githubUsername +
             '/repos?sort=created&direction=asc?access_token=' +
-            environment.apiKey
+            this.environment.apiKey
         )
         .toPromise()
         .then(
