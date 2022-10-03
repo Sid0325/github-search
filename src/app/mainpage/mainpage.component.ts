@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RepositoryUserService } from '../repository-user.service';
+import { RepositoryUserService } from '../services/repository-user.service';
 import { User } from '../user';
 
 @Component({
@@ -11,11 +11,13 @@ export class MainpageComponent implements OnInit {
 
   user!: User;
   repositories: any;
+  historyUser: string = 'Sid953'
   constructor(private repositoryUserService: RepositoryUserService) { }
 
   ngOnInit(): void {
-    this.getUserDetails('Njihia413');
-    this.getUserRepositories('Njihia413');
+    this.repositoryUserService.castUser.subscribe(user => this.historyUser = user);
+    this.getUserDetails(this.historyUser);
+    this.getUserRepositories(this.historyUser);
   }
 
   //user details
@@ -27,7 +29,7 @@ export class MainpageComponent implements OnInit {
       (error) => {
         console.log(error);
       }
-    ); 
+    );
   }
 
 

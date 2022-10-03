@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { RepositoryUserService } from '../repository-user.service';
+import { RepositoryUserService } from '../services/repository-user.service';
 import { User } from '../user';
 
 @Component({
@@ -15,17 +15,22 @@ export class UserSearchComponent implements OnInit {
   displayUserDetailContainer = false;
   displayGithubUserErrorNotFound = false;
 
-  constructor(private userservice : RepositoryUserService) { }
+  constructor(private userservice: RepositoryUserService) { }
 
   //accessing form inputs
   @ViewChild('f')
   searchForm!: NgForm;
-
-  ngOnInit(): void {}
+  query: string = '';
+  ngOnInit(): void { }
 
   //search for a github user
-  searchGithubUser () {
+  searchGithubUser() {
     this.searchText = this.searchForm.value.search;
+    if (!this.userservice.searchHistory.some((q: string) => q === this.searchText)) {
+      this.userservice.searchHistory = [...this.userservice.searchHistory, this.searchText];
+      console.log(this.userservice.searchHistory)
+      this.userservice.setSearchHistory('searchHistory', this.userservice.searchHistory)
+    }
     this.userservice.getUserResponse(this.searchText).then(
       (response) => {
         this.user = this.userservice.getUserDetails;

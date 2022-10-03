@@ -7,12 +7,12 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { FooterComponent } from './footer/footer.component';
-import { StarRepositoryDirective } from './star-repository.directive';
 import { UserSearchComponent } from './user-search/user-search.component';
 import { FormsModule } from '@angular/forms';
 import { RepositorySearchComponent } from './repository-search/repository-search.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SearchHistoryComponent } from './search-history/search-history.component';
+import { StarRepositoryDirective } from './custom-directives/star-repository.directive';
 
 
 @NgModule({
